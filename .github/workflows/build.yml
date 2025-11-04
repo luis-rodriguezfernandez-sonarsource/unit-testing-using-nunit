@@ -40,9 +40,24 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      - name: Build and analyze
-        shell: powershell
+      # - name: Build and analyze
+      #   shell: powershell
+      #   run: |
+      #     .\.sonar\scanner\dotnet-sonarscanner begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+      #     dotnet build
+      #     .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+      - name: Download SonarScanner for .NET Framework
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-          dotnet build
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+           curl -L -o sonar-scanner.zip "https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/11.0.0.126294/sonar-scanner-11.0.0.126294-net-framework.zip"
+           unzip sonar-scanner.zip -d .sonar-scanner
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2 
+      - name: SonarQube Begin
+        run: msbuild begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+        shell: pwsh
+      - name: Build Solution
+        run: msbuild unit-testing-using-nunit.sln /t:Rebuild
+        shell: pwsh
+      - name: SonarQube End
+        run: msbuild end end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
