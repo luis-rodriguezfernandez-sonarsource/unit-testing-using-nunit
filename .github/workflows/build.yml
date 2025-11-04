@@ -40,27 +40,27 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      - name: Download SonarScanner for .NET Framework
-        run: |
-           curl -L -o sonar-scanner.zip "https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/11.0.0.126294/sonar-scanner-11.0.0.126294-net-framework.zip"
-           unzip sonar-scanner.zip -d .sonar-scanner
-        shell: pwsh 
-      - name: SonarQube Begin
-        run: .sonar-scanner/SonarScanner.MSBuild.exe begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-        shell: pwsh
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
-      - name: Restore NuGet Packages
-        run: nuget restore $env:SolutionPath
-        shell: pwsh
-      - name: Build Solution
-        run: msbuild unit-testing-using-nunit.sln /t:Rebuild
-        shell: pwsh
+      # - name: Download SonarScanner for .NET Framework
+      #   run: |
+      #      curl -L -o sonar-scanner.zip "https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/11.0.0.126294/sonar-scanner-11.0.0.126294-net-framework.zip"
+      #      unzip sonar-scanner.zip -d .sonar-scanner
+      #   shell: pwsh 
+      # - name: SonarQube Begin
+      #   run: .sonar-scanner/SonarScanner.MSBuild.exe begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+      #   shell: pwsh
+      # - name: Add msbuild to PATH
+      #   uses: microsoft/setup-msbuild@v2
+      # - name: Restore NuGet Packages
+      #   run: nuget restore $env:SolutionPath
+      #   shell: pwsh
+      # - name: Build Solution
+      #   run: msbuild unit-testing-using-nunit.sln /t:Rebuild
+      #   shell: pwsh
       - name: Install NUnit.ConsoleRunner
         run: nuget install NUnit.ConsoleRunner -Version 3.20.2 -DirectDownload -OutputDirectory .nunit-console
         shell: pwsh
-      - name: Run NUnit Version
-        run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe --version
-        shell: pwsh
-      - name: SonarQube End
-        run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      # - name: Run NUnit Version
+      #   run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe --version
+      #   shell: pwsh
+      # - name: SonarQube End
+      #   run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
