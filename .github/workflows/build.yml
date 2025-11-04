@@ -11,16 +11,16 @@ jobs:
   build:
     name: Build and analyze
     runs-on: windows-latest
-    
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          distribution: "zulu" # Alternative distribution options are available.
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -43,6 +43,6 @@ jobs:
       - name: Build and analyze
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_5c4225da-ad11-426a-a13d-4aaffe9409e7" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
