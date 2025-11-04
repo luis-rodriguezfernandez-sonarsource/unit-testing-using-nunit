@@ -66,10 +66,10 @@ jobs:
       #   run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe ./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll --result=TestResult.xml
       #   shell: pwsh
       - name: Install OpenCover
-        run: nuget install OpenCover -Version 5.7.1 -DirectDownload -OutputDirectory .open-cover
+        run: nuget install OpenCover -Version 4.7.1221 -DirectDownload -OutputDirectory .open-cover
         shell: pwsh
       - name: Run Unit Tests with OpenCover
-        run: .\.open-cover\OpenCover.5.7.1\tools\OpenCover.Console.exe -target:.nunit-console\NUnit.ConsoleRunner.3.20.2\tools\nunit3-console.exe -targetargs:"./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll" -output:coverage.xml
+        run: .\.open-cover\OpenCover.4.7.1221\tools\OpenCover.Console.exe -target:.nunit-console\NUnit.ConsoleRunner.3.20.2\tools\nunit3-console.exe -targetargs:"./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll" -output:coverage.xml
         shell: pwsh
       - name: SonarQube End
         run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
