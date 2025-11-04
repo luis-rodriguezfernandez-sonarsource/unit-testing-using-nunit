@@ -68,6 +68,9 @@ jobs:
       - name: Install OpenCover
         run: nuget install OpenCover -Version 4.7.1221 -DirectDownload -OutputDirectory .open-cover
         shell: pwsh
+      - name: Look for OpenCover files
+        run: dir .
+        shell: pwsh
       - name: Run Unit Tests with OpenCover
         run: .\.open-cover\OpenCover.4.7.1221\tools\OpenCover.Console.exe -target:.nunit-console\NUnit.ConsoleRunner.3.20.2\tools\nunit3-console.exe -targetargs:"./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll" -output:coverage.xml
         shell: pwsh
