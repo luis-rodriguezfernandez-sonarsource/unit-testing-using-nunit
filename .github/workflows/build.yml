@@ -59,8 +59,8 @@ jobs:
       - name: Install NUnit.ConsoleRunner
         run: nuget install NUnit.ConsoleRunner -Version 3.20.2 -DirectDownload -OutputDirectory .nunit-console
         shell: pwsh
-      # - name: Run NUnit Version
-      #   run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe --version
-      #   shell: pwsh
+      - name: Run NUnit Version
+        run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe --version
+        shell: pwsh
       # - name: SonarQube End
       #   run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
