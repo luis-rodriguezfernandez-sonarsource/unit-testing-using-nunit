@@ -50,6 +50,9 @@ jobs:
         shell: pwsh
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
+      - name: Restore NuGet Packages
+        run: nuget restore $env:SolutionPath
+        shell: pwsh
       - name: Build Solution
         run: msbuild unit-testing-using-nunit.sln /t:Rebuild
         shell: pwsh
