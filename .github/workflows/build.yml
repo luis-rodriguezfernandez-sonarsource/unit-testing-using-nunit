@@ -63,7 +63,7 @@ jobs:
       #   run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe --version
       #   shell: pwsh
       - name: Run Unit Tests
-        run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe **/PrimeService.Tests.dll --result=TestResult.xml
+        run: .\.nunit-console\NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe ./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll --result=TestResult.xml
         shell: pwsh
       - name: SonarQube End
         run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
