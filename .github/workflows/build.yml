@@ -48,8 +48,10 @@ jobs:
       - name: SonarQube Begin
         run: .sonar-scanner/SonarScanner.MSBuild.exe begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
         shell: pwsh
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
       - name: Build Solution
-        run: .sonar-scanner/SonarScanner.MSBuild.exe unit-testing-using-nunit.sln /t:Rebuild
+        run: msbuild unit-testing-using-nunit.sln /t:Rebuild
         shell: pwsh
       - name: SonarQube End
         run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
