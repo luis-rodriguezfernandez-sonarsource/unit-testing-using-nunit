@@ -46,7 +46,7 @@ jobs:
            unzip sonar-scanner.zip -d .sonar-scanner
         shell: pwsh 
       - name: SonarQube Begin
-        run: .sonar-scanner/SonarScanner.MSBuild.exe begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+        run: .sonar-scanner/SonarScanner.MSBuild.exe begin /k:"luis-rodriguezfernandez-sonarsource_unit-testing-using-nunit_fc62dfcd-15dc-4fb1-85b9-b453916f6d56" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=coverage.xml
         shell: pwsh
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
@@ -71,7 +71,7 @@ jobs:
       - name: Run Unit Tests with OpenCover
         run: .\.open-cover\OpenCover.4.7.1221\tools\OpenCover.Console.exe -target:.nunit-console\NUnit.ConsoleRunner.3.20.2\tools\nunit3-console.exe -targetargs:"./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll" -output:coverage.xml -log:All
         shell: pwsh
-      - name: Look for OpenCover files
+      - name: Look for OpenCover and TestResult files
         run: dir .
         shell: pwsh
       - name: SonarQube End
