@@ -79,6 +79,6 @@ jobs:
         if: (!cancelled())
         with:
          files: |
-           **/**/TestResult.xml
+           ${{ github.workspace }}/*/TestResult.xml
       - name: SonarQube End
         run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
