@@ -65,11 +65,7 @@ jobs:
         shell: pwsh
       - name: Run Unit Tests with OpenCover
         run: |
-          .\.open-cover\OpenCover.4.7.1221\tools\OpenCover.Console.exe \
-          -target:.nunit-console\NUnit.ConsoleRunner.3.20.2\tools\nunit3-console.exe \
-          -targetargs:"./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll" \
-          -output:coverage.xml \
-          -log:All
+          .\.open-cover\OpenCover.4.7.1221\tools\OpenCover.Console.exe -target:.nunit-console\NUnit.ConsoleRunner.3.20.2\tools\nunit3-console.exe -targetargs:"./PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll" -output:coverage.xml -log:All
         shell: pwsh
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/windows@v2
