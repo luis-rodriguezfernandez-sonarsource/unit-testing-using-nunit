@@ -82,7 +82,7 @@ jobs:
         with:
           reports: ${{ github.workspace }}/coverage.xml
           targetdir: ${{ github.workspace }}/coverage-report
-          assemblyFilters: '+${{ github.workspace }}/PrimeService.Tests/bin/Debug/net9.0/PrimeService.Tests.dll'
+          assemblyFilters: '+**/**/*.Tests.dll; -nunit; -xunit; -MSTest.TestFramework; -MSTest.TestAdapter'
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v4
         with:
