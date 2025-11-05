@@ -74,5 +74,11 @@ jobs:
           -output:coverage.xml \
           -log:All
         shell: pwsh
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: (!cancelled())
+        with:
+         files: |
+           TestResult.xml
       - name: SonarQube End
         run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
