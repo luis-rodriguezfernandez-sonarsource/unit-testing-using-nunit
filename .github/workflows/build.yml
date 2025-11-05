@@ -86,12 +86,12 @@ jobs:
       - name: Upload coverage report XML
         uses: actions/upload-artifact@v4
         with:
-          name: Coverage Report
+          name: Coverage Report XML
           path: ${{ github.workspace }}/coverage.xml
       - name: Upload coverage report folder
         uses: actions/upload-artifact@v4
         with:
-          name: Coverage Report
+          name: Coverage Report Folder
           path: ${{ github.workspace }}/coverage-report
       - name: SonarQube End
         run: .sonar-scanner/SonarScanner.MSBuild.exe end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
